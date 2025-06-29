@@ -3,6 +3,7 @@ package controllers
 import (
 	"net/http"
 
+	"github.com/fabiokusaba/go-categories-msvc/internal/repositories"
 	usecases "github.com/fabiokusaba/go-categories-msvc/internal/use-cases"
 	"github.com/gin-gonic/gin"
 )
@@ -11,7 +12,7 @@ type createCategoryInput struct {
 	Name string `json:"name" binding:"required"`
 }
 
-func CreateCategory(ctx *gin.Context) {
+func CreateCategory(ctx *gin.Context, repository repositories.ICategoryRepository) {
 	var body createCategoryInput
 
 	if err := ctx.ShouldBindJSON(&body); err != nil {
@@ -19,7 +20,7 @@ func CreateCategory(ctx *gin.Context) {
 		return
 	}
 
-	useCase := usecases.NewCreateCategoryUseCase()
+	useCase := usecases.NewCreateCategoryUseCase(repository)
 
 	err := useCase.Execute(body.Name)
 	if err != nil {
