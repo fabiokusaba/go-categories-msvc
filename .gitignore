@@ -1,0 +1,37 @@
+# Binaries
+/bin/
+/build/
+/dist/
+
+# Air (live reload)
+tmp/
+.air
+
+# Go artifacts
+*.exe
+*.test
+*.out
+*.o
+
+# IDE/editor config
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Dependency management
+vendor/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Environment configs
+.env
+.env.*
+
+# Http files
+*.http
