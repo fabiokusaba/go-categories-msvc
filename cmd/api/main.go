@@ -11,5 +11,7 @@ func main() {
 		})
 	})
 
+	CategoryRoutes(router)
+
 	router.Run()
 }
