@@ -4,14 +4,16 @@ import (
 	"log"
 
 	"github.com/fabiokusaba/go-categories-msvc/internal/entities"
+	"github.com/fabiokusaba/go-categories-msvc/internal/repositories"
 )
 
 type createCategoryUseCase struct {
 	// db
+	repository repositories.ICategoryRepository
 }
 
-func NewCreateCategoryUseCase() *createCategoryUseCase {
-	return &createCategoryUseCase{}
+func NewCreateCategoryUseCase(repository repositories.ICategoryRepository) *createCategoryUseCase {
+	return &createCategoryUseCase{repository: repository}
 }
 
 func (u *createCategoryUseCase) Execute(name string) error {
@@ -20,7 +22,12 @@ func (u *createCategoryUseCase) Execute(name string) error {
 		return err
 	}
 
-	// TODO: persist entity to db
 	log.Println(category)
+
+	err = u.repository.Save(category)
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
